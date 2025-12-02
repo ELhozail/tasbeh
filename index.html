@@ -20,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             position: relative;
             overflow-y: auto;
         }
@@ -28,11 +28,8 @@
         body::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
+            inset: 0;
+            background-image:
                 radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
             pointer-events: none;
@@ -40,78 +37,71 @@
 
         .container {
             background: linear-gradient(to bottom, #f8f6f0 0%, #ffffff 100%);
-            border-radius: 30px;
-            padding: 30px 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            max-width: 420px;
+            border-radius: 20px;
+            padding: 18px 14px;
+            box-shadow: 0 14px 35px rgba(0,0,0,0.35);
             width: 100%;
+            max-width: 360px;
             text-align: center;
-            border: 3px solid #d4af37;
+            border: 2px solid #d4af37;
             position: relative;
         }
 
         .container::before {
             content: '☪️';
             position: absolute;
-            top: -20px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 40px;
+            font-size: 26px;
             background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
-            width: 60px;
-            height: 60px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #d4af37;
+            border: 2px solid #d4af37;
         }
 
         h1 {
             color: #0f4c3a;
-            margin-bottom: 10px;
-            font-size: 32px;
-            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-size: 22px;
+            text-shadow: 0 1px 3px rgba(212, 175, 55, 0.3);
         }
 
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 14px;
+            font-size: 13px;
             font-weight: bold;
             font-style: italic;
         }
 
-        .designer-credit {
-            color: #888;
-            font-size: 12px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-
         .dhikr-selector {
-            margin-bottom: 20px;
+            margin-bottom: 14px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .dhikr-btn {
             background: #f0f0f0;
-            border: 2px solid #e0e0e0;
-            padding: 10px 14px;
-            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+            padding: 6px 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 15px;
-            transition: all 0.3s;
-            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.25s;
+            font-weight: 600;
             white-space: nowrap;
         }
 
         .dhikr-btn:hover {
-            background: #e0e0e0;
+            background: #e5e5e5;
         }
 
         .dhikr-btn.active {
@@ -120,42 +110,19 @@
             border-color: #d4af37;
         }
 
-        .target-selector {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .target-btn {
-            background: #f0f0f0;
-            border: 2px solid #e0e0e0;
-            padding: 8px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-            min-width: 60px;
-        }
-
-        .target-btn:hover {
-            background: #e0e0e0;
-        }
-
-        .target-btn.active {
-            background: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
+        .target {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         .counter-display {
             background: transparent;
             color: #0f4c3a;
-            border-radius: 20px;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 44px;
+            border-radius: 16px;
+            padding: 8px 0;
+            margin: 6px 0;
+            font-size: 32px;
             font-weight: bold;
             transition: transform 0.1s;
         }
@@ -164,50 +131,73 @@
             transform: scale(1.05);
         }
 
-        .target {
-            color: #888;
-            font-size: 18px;
-            margin-bottom: 14px;
+        .target-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 6px 0 10px;
+        }
+
+        .target-btn {
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            padding: 6px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.25s;
+            min-width: 52px;
+        }
+
+        .target-btn:hover {
+            background: #e5e5e5;
+        }
+
+        .target-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
         }
 
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 10px;
         }
 
         button {
-            padding: 16px;
             border: none;
-            border-radius: 15px;
-            font-size: 18px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
 
         .count-btn {
             background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
             color: #d4af37;
-            box-shadow: 0 8px 30px rgba(15, 76, 58, 0.5);
-            border: 3px solid #d4af37;
+            box-shadow: 0 8px 24px rgba(15, 76, 58, 0.55);
+            border: 2px solid #d4af37;
             padding: 0;
-            height: 260px;
-            border-radius: 25px;
-            font-size: 28px;
+            height: 190px;
+            border-radius: 18px;
+            font-size: 20px;
             position: relative;
             overflow: hidden;
         }
 
         .count-btn::before {
             content: '👆';
-            font-size: 110px;
+            font-size: 80px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.25;
+            opacity: 0.22;
             filter: grayscale(100%) brightness(2);
         }
 
@@ -219,21 +209,21 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            gap: 10px;
+            gap: 6px;
         }
 
         .count-btn .btn-text .main-text {
-            font-size: 30px;
+            font-size: 20px;
         }
 
         .count-btn .btn-text .sub-text {
-            font-size: 18px;
-            opacity: 0.85;
+            font-size: 13px;
+            opacity: 0.9;
         }
 
         .count-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 40px rgba(15, 76, 58, 0.6);
+            transform: scale(1.01);
+            box-shadow: 0 9px 26px rgba(15, 76, 58, 0.65);
         }
 
         .count-btn:active {
@@ -243,8 +233,8 @@
         .reset-btn {
             background: #c62828;
             color: white;
-            padding: 13px;
-            font-size: 16px;
+            padding: 8px;
+            font-size: 14px;
         }
 
         .reset-btn:hover {
@@ -254,23 +244,23 @@
         .completion-message {
             background: #4CAF50;
             color: white;
-            padding: 12px;
-            border-radius: 15px;
-            margin-top: 18px;
-            font-size: 16px;
+            padding: 8px;
+            border-radius: 12px;
+            margin-top: 10px;
+            font-size: 13px;
             font-weight: bold;
             display: none;
         }
 
         .completion-message.show {
             display: block;
-            animation: slideIn 0.5s;
+            animation: slideIn 0.4s;
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-12px);
             }
             to {
                 opacity: 1;
@@ -279,18 +269,18 @@
         }
 
         .stats {
-            margin-top: 22px;
-            padding: 15px;
+            margin-top: 14px;
+            padding: 10px;
             background: #f9f9f9;
-            border-radius: 15px;
+            border-radius: 12px;
         }
 
         .stat-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 5px 0;
             color: #666;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .stat-value {
@@ -298,67 +288,56 @@
             font-weight: bold;
         }
 
-        /* 🔻 تحسينات للجوال 🔻 */
-        @media (max-width: 480px) {
+        .designer-credit {
+            color: #888;
+            font-size: 11px;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* 📺 تحسين للّاب / الشاشات الأكبر */
+        @media (min-width: 480px) {
             body {
-                padding: 12px;
-                align-items: flex-start;
+                padding: 20px;
             }
 
             .container {
-                padding: 22px 14px;
-                border-radius: 22px;
+                max-width: 420px;
+                border-radius: 24px;
+                padding: 22px 18px;
             }
 
             h1 {
                 font-size: 26px;
-                margin-top: 10px;
             }
 
             .subtitle {
                 font-size: 14px;
-                margin-bottom: 18px;
-            }
-
-            .dhikr-btn {
-                font-size: 13px;
-                padding: 7px 10px;
             }
 
             .counter-display {
                 font-size: 36px;
-                padding: 10px 0;
-            }
-
-            .target {
-                font-size: 16px;
             }
 
             .count-btn {
-                height: 220px;
+                height: 210px;
             }
 
             .count-btn .btn-text .main-text {
-                font-size: 24px;
+                font-size: 22px;
             }
 
             .count-btn .btn-text .sub-text {
                 font-size: 14px;
             }
 
-            button {
+            .reset-btn {
                 font-size: 15px;
-                padding: 12px;
             }
 
-            .stats {
-                padding: 12px;
-                margin-top: 16px;
-            }
-
-            .designer-credit {
-                margin-top: 20px;
-                padding-top: 15px;
+            .stat-item {
+                font-size: 13px;
             }
         }
     </style>
@@ -382,7 +361,7 @@
         
         <div class="target">الهدف: <span id="target">33</span></div>
 
-        <div class="target-selector" style="margin: 12px 0 18px;">
+        <div class="target-selector">
             <button class="target-btn" onclick="setTarget(33)">33</button>
             <button class="target-btn" onclick="setTarget(66)">66</button>
             <button class="target-btn" onclick="setTarget(99)">99</button>
@@ -467,7 +446,7 @@
                 
                 setTimeout(() => {
                     document.getElementById('completionMsg').classList.remove('show');
-                }, 3000);
+                }, 2500);
             }
         }
 
