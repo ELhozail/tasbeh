@@ -2,402 +2,474 @@
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="مسبحة إلكترونية متطورة - تطبيق ويب للتسبيح والذكر اليومي">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>المسبحة الذكية</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="مسبحة إلكترونية - تطبيق ويب للتسبيح والذكر">
+    <meta name="author" content="عبد الحليم أبو طلب">
+    <title>مسبحة إلكترونية</title>
     <style>
-        /* --- إعدادات عامة --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* منع تحديد النص لإعطاء شعور التطبيق */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            /* إزالة لون التظليل عند الضغط على الموبايل */
-            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
-            height: 100%; /* ضمان أن الصفحة تأخذ كامل الارتفاع */
-            overflow: hidden; /* منع التمرير نهائياً */
+            height: 100%;
+            overflow: hidden; /* لا سكرول */
         }
 
         body {
-            background: linear-gradient(135deg, #0f4c3a 0%, #0a3d2e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 50%, #0a3d2e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .app {
+            width: 100%;
+            height: 100vh;              /* يساوي شاشة الهاتف */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px; /* تقليل الحواف الخارجية */
+            padding: 8px;
             position: relative;
         }
 
-        body::before {
+        .app::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
-        /* --- الحاوية الرئيسية - تعديلات التطبيق --- */
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 20px 15px; /* تقليل الحواف الداخلية */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            max-width: 500px;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, #f8f6f0 0%, #ffffff 100%);
+            border-radius: 18px;
+            border: 2px solid #d4af37;
             width: 100%;
-            /* أهم تعديل: جعل الحاوية تأخذ أقصى ارتفاع ممكن للشاشة وتوزيع المحتوى بداخلها */
+            max-width: 380px;
             height: 100%;
-            max-height: 98vh; 
+            max-height: 640px; /* لأجهزة أكبر شوية */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+            padding: 14px 12px 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* توزيع العناصر لملء الفراغ */
-            border-top: 4px solid #d4af37;
-            position: relative;
-            backdrop-filter: blur(10px);
+            align-items: stretch;
         }
 
-        /* رأس الصفحة */
-        .header-section {
-            flex-shrink: 0; /* منع هذا القسم من الانكماش */
-            text-align: center;
-            margin-bottom: 10px;
+        .container::before {
+            content: '☪️';
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #d4af37;
         }
 
-        .header-icon {
-            font-size: 32px; /* تصغير الأيقونة */
-            color: #d4af37;
-            display: block;
+        /* أعلى الشاشة: العنوان + الذكر + الهدف */
+        .top-section {
+            flex: 0 0 auto;
         }
 
         h1 {
             color: #0f4c3a;
-            margin-bottom: 2px;
-            font-size: 22px; /* تصغير العنوان */
+            margin-top: 14px;
+            margin-bottom: 4px;
+            font-size: clamp(18px, 4.5vw, 22px);
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(212, 175, 55, 0.3);
         }
 
         .subtitle {
             color: #666;
-            font-size: 12px;
+            margin-bottom: 10px;
+            font-size: clamp(11px, 3.2vw, 13px);
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
         }
 
-        /* --- أقسام الاختيار --- */
-        .selection-area {
-            flex-shrink: 0;
-        }
-
-        .selector-group {
+        .dhikr-selector {
+            margin-bottom: 8px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px; /* تقليل المسافات */
             justify-content: center;
-            margin-bottom: 10px;
+            gap: 4px;
         }
 
-        .select-btn {
-            background: #f4f4f4;
+        .dhikr-btn {
+            background: #f0f0f0;
             border: 1px solid #e0e0e0;
-            padding: 6px 12px; /* تصغير الأزرار */
-            border-radius: 15px;
-            font-size: 12px;
-            color: #555;
+            padding: 5px 9px;
+            border-radius: 11px;
+            cursor: pointer;
+            font-size: clamp(10px, 2.8vw, 12px);
+            transition: all 0.2s;
+            font-weight: 600;
+            white-space: nowrap;
         }
-        
-        .select-btn.active {
-            background: #0f4c3a;
+
+        .dhikr-btn:hover {
+            background: #e5e5e5;
+        }
+
+        .dhikr-btn.active {
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
             color: white;
-            border-color: #0f4c3a;
+            border-color: #d4af37;
         }
 
-        /* --- منطقة العرض والعداد --- */
-        .display-area {
-            background: linear-gradient(to bottom, #f9f9f9, #fff);
-            border-radius: 15px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #eee;
+        .target {
+            color: #777;
+            font-size: clamp(11px, 3.3vw, 14px);
+            margin-bottom: 4px;
             text-align: center;
-            flex-shrink: 0;
-        }
-
-        .current-dhikr-name {
-            font-size: 16px;
-            color: #d4af37;
-            font-weight: bold;
         }
 
         .counter-display {
-            /* جعل حجم الخط متجاوباً مع عرض الشاشة */
-            font-size: clamp(50px, 15vw, 80px);
-            font-weight: bold;
+            background: transparent;
             color: #0f4c3a;
-            line-height: 1.1;
-            transition: transform 0.1s ease-in-out;
+            border-radius: 14px;
+            padding: 4px 0;
+            margin: 4px 0;
+            font-size: clamp(26px, 8vw, 34px);
+            font-weight: bold;
+            transition: transform 0.1s;
+            text-align: center;
         }
-        
+
         .counter-display.pulse {
-            transform: scale(1.08);
-            color: #d4af37;
+            transform: scale(1.05);
         }
 
-        .target-info {
-            color: #999;
-            font-size: 13px;
+        .target-selector {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: nowrap;
+            margin: 4px 0 6px;
         }
 
-        /* --- الأزرار الرئيسية (المنطقة المرنة) --- */
-        .main-button-container {
-            /* هذا هو السحر: هذا القسم سيأخذ كل المساحة المتبقية */
-            flex-grow: 1; 
+        .target-btn {
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            padding: 4px 10px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: clamp(11px, 3.2vw, 13px);
+            font-weight: 700;
+            transition: all 0.2s;
+            min-width: 48px;
+        }
+
+        .target-btn:hover {
+            background: #e5e5e5;
+        }
+
+        .target-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        /* منتصف الشاشة: زر العدّ يأخذ المساحة المرنة */
+        .middle-section {
+            flex: 1 1 auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            min-height: 150px; /* ضمان حد أدنى للارتفاع */
+            justify-content: center;
+            margin: 4px 0;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            height: 100%;
+        }
+
+        button {
+            border: none;
+            border-radius: 14px;
+            font-size: clamp(13px, 3.3vw, 16px);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
         .count-btn {
             background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            /* إزالة الارتفاع الثابت وجعله يملأ المساحة */
-            height: auto;
-            flex-grow: 1; 
-            width: 100%;
-            padding: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 5px 20px rgba(15, 76, 58, 0.3);
+            color: #d4af37;
+            box-shadow: 0 8px 20px rgba(15, 76, 58, 0.55);
+            border: 2px solid #d4af37;
+            padding: 0;
+            border-radius: 18px;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex: 1 1 auto;   /* يأخذ المتبقي من الارتفاع */
+            min-height: 120px;
         }
 
-        .count-btn::after {
+        .count-btn::before {
             content: '👆';
+            font-size: clamp(60px, 18vw, 80px);
             position: absolute;
-            font-size: 60px;
-            opacity: 0.1;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            opacity: 0.22;
+            filter: grayscale(100%) brightness(2);
         }
-        
+
+        .count-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 4px;
+        }
+
+        .count-btn .btn-text .main-text {
+            font-size: clamp(16px, 4.3vw, 20px);
+        }
+
+        .count-btn .btn-text .sub-text {
+            font-size: clamp(11px, 3vw, 13px);
+            opacity: 0.9;
+        }
+
+        .count-btn:hover {
+            transform: scale(1.01);
+            box-shadow: 0 9px 24px rgba(15, 76, 58, 0.65);
+        }
+
         .count-btn:active {
             transform: scale(0.98);
         }
 
         .reset-btn {
-            flex-shrink: 0;
-            background: transparent;
-            color: #d32f2f;
-            border: 2px solid #d32f2f;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 14px;
+            background: #c62828;
+            color: white;
+            padding: 6px;
+            font-size: clamp(12px, 3.1vw, 14px);
+            flex: 0 0 auto;
         }
 
-        /* --- الإحصائيات (الذيل) --- */
-        .stats-panel {
-            flex-shrink: 0;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-            font-size: 11px;
-            color: #777;
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-        
-        .stat-box strong {
-            display: block;
-            color: #0f4c3a;
-            font-size: 15px;
+        .reset-btn:hover {
+            background: #b71c1c;
         }
 
-        /* --- رسالة الإكمال --- */
+        /* أسفل الشاشة: الرسالة + الإحصائيات + التوقيع */
+        .bottom-section {
+            flex: 0 0 auto;
+            margin-top: 4px;
+        }
+
         .completion-message {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
             background: #4CAF50;
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+            padding: 6px;
+            border-radius: 10px;
+            margin-top: 4px;
+            font-size: clamp(11px, 3vw, 13px);
             font-weight: bold;
-            z-index: 100;
-            transition: transform 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.28);
-            opacity: 0;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-        
-        .completion-message.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+            display: none;
+            text-align: center;
         }
 
-        /* --- استعلامات الوسائط للشاشات الضيقة جداً (مثل iPhone SE) --- */
-        @media (max-height: 600px) {
-             .header-icon, .subtitle, .target-selector-group {
-                 display: none; /* إخفاء العناصر غير الضرورية جداً لتوفير المساحة */
-             }
-             .container { padding: 10px; }
-             .count-btn { font-size: 18px; }
-             .counter-display { font-size: 50px; }
+        .completion-message.show {
+            display: block;
+            animation: slideIn 0.4s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats {
+            margin-top: 6px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            color: #666;
+            font-size: clamp(10px, 2.8vw, 12px);
+        }
+
+        .stat-value {
+            color: #0f4c3a;
+            font-weight: bold;
+        }
+
+        .designer-credit {
+            color: #888;
+            font-size: clamp(9px, 2.5vw, 11px);
+            margin-top: 6px;
+            padding-top: 4px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <div class="app">
+        <div class="container">
+            <div class="top-section">
+                <h1>🕌 المسبحة الإلكترونية</h1>
+                <p class="subtitle">سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى</p>
 
-    <div class="completion-message" id="completionMsg">✨ أحسنت! تقبل الله منك ✨</div>
+                <div class="dhikr-selector">
+                    <button class="dhikr-btn active" onclick="setDhikr('سبحان الله', 33)">سبحان الله</button>
+                    <button class="dhikr-btn" onclick="setDhikr('الحمد لله', 33)">الحمد لله</button>
+                    <button class="dhikr-btn" onclick="setDhikr('الله أكبر', 34)">الله أكبر</button>
+                    <button class="dhikr-btn" onclick="setDhikr('لا إله إلا الله', 100)">لا إله إلا الله</button>
+                    <button class="dhikr-btn" onclick="setDhikr('أستغفر الله', 100)">أستغفر الله</button>
+                </div>
 
-    <div class="container">
-        <div class="header-section">
-            <span class="header-icon">☪</span>
-            <h1>المسبحة الإلكترونية</h1>
-            <p class="subtitle">اذكر الله</p>
-        </div>
+                <div class="target" id="dhikrName">سبحان الله</div>
+                <div class="counter-display" id="counter">0</div>
+                <div class="target">الهدف: <span id="target">33</span></div>
 
-        <div class="selection-area">
-            <div class="selector-group" id="dhikrButtons">
-                <button class="select-btn active" onclick="setDhikr('سبحان الله', 33, this)">سبحان الله</button>
-                <button class="select-btn" onclick="setDhikr('الحمد لله', 33, this)">الحمد لله</button>
-                <button class="select-btn" onclick="setDhikr('الله أكبر', 34, this)">الله أكبر</button>
-                <button class="select-btn" onclick="setDhikr('أستغفر الله', 100, this)">أستغفر الله</button>
-                 <button class="select-btn" onclick="setDhikr('الصلاة على النبي', 10, this)">الصلاة على النبي</button>
+                <div class="target-selector">
+                    <button class="target-btn" onclick="setTarget(33)">33</button>
+                    <button class="target-btn" onclick="setTarget(66)">66</button>
+                    <button class="target-btn" onclick="setTarget(99)">99</button>
+                </div>
             </div>
-            
-            <div class="selector-group target-selector-group">
-                <button class="select-btn" onclick="setTargetManual(33)">33</button>
-                <button class="select-btn" onclick="setTargetManual(100)">100</button>
-                 <button class="select-btn" onclick="setTargetManual(Infinity)">مفتوح</button>
+
+            <div class="middle-section">
+                <div class="buttons">
+                    <button class="count-btn" onclick="increment()">
+                        <div class="btn-text">
+                            <div class="main-text">اضغط للتسبيح</div>
+                            <div class="sub-text">☝️ المس الشاشة</div>
+                        </div>
+                    </button>
+                    <button class="reset-btn" onclick="resetCounter()">إعادة ضبط العداد</button>
+                </div>
+            </div>
+
+            <div class="bottom-section">
+                <div class="completion-message" id="completionMsg">
+                    ✨ أحسنت! أكملت العدد المطلوب ✨
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span>إجمالي التسبيحات اليوم:</span>
+                        <span class="stat-value" id="totalCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>الجولات المكتملة:</span>
+                        <span class="stat-value" id="completedRounds">0</span>
+                    </div>
+                </div>
+
+                <div class="designer-credit">
+                    تصميم: عبد الحليم أبو طلب
+                </div>
             </div>
         </div>
-
-        <div class="display-area">
-            <div class="current-dhikr-name" id="dhikrNameDisplay">سبحان الله</div>
-            <div class="counter-display" id="counter">0</div>
-            <div class="target-info">الهدف: <span id="targetDisplay">33</span></div>
-        </div>
-
-        <div class="main-button-container">
-            <button class="count-btn" onclick="increment()" id="mainBtn">
-                <span>اضغط للتسبيح</span>
-            </button>
-            <button class="reset-btn" onclick="resetCounter()">تصفير</button>
-        </div>
-        
-        <div class="stats-panel">
-            <div class="stat-box">
-                <strong id="totalClicks">0</strong>
-                الضغطات
-            </div>
-            <div class="stat-box">
-                <strong id="completedRounds">0</strong>
-                الجولات
-            </div>
-        </div>
-
     </div>
 
     <script>
-        // --- نفس كود الجافاسكريبت السابق تماماً ---
         let count = 0;
         let target = 33;
-        let totalClicks = 0;
-        let rounds = 0;
-        const counterDisplay = document.getElementById('counter');
-        const targetDisplay = document.getElementById('targetDisplay');
-        const completionMsg = document.getElementById('completionMsg');
-        const dhikrNameDisplay = document.getElementById('dhikrNameDisplay');
-        const totalClicksDisplay = document.getElementById('totalClicks');
-        const completedRoundsDisplay = document.getElementById('completedRounds');
+        let currentDhikr = 'سبحان الله';
+        let totalCount = 0;
+        let completedRounds = 0;
+
+        function setTarget(newTarget) {
+            target = newTarget;
+            document.getElementById('target').textContent = target;
+            resetCounter();
+
+            document.querySelectorAll('.target-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function setDhikr(dhikrName, dhikrTarget) {
+            currentDhikr = dhikrName;
+            target = dhikrTarget;
+            document.getElementById('dhikrName').textContent = dhikrName;
+            document.getElementById('target').textContent = target;
+            resetCounter();
+
+            document.querySelectorAll('.dhikr-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
 
         function increment() {
             count++;
-            totalClicks++;
-            updateDisplay();
-            triggerPulseEffect();
+            totalCount++;
 
-            if (target !== Infinity && count >= target) {
-                showCompletionMessage();
-                rounds++;
-                count = 0;
-                updateDisplay();
+            const counterEl = document.getElementById('counter');
+            counterEl.textContent = count;
+            counterEl.classList.add('pulse');
+            setTimeout(() => counterEl.classList.remove('pulse'), 100);
+
+            document.getElementById('totalCount').textContent = totalCount;
+
+            if (count === target) {
+                completedRounds++;
+                document.getElementById('completedRounds').textContent = completedRounds;
+                const msg = document.getElementById('completionMsg');
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 2500);
             }
-            updateStats();
         }
 
         function resetCounter() {
             count = 0;
-            updateDisplay();
-             completionMsg.classList.remove('show');
+            document.getElementById('counter').textContent = count;
+            document.getElementById('completionMsg').classList.remove('show');
         }
 
-        function updateDisplay() {
-            counterDisplay.textContent = count;
-        }
-
-        function triggerPulseEffect() {
-            counterDisplay.classList.add('pulse');
-            setTimeout(() => {
-                counterDisplay.classList.remove('pulse');
-            }, 150);
-        }
-
-        function showCompletionMessage() {
-            completionMsg.classList.add('show');
-            setTimeout(() => {
-                completionMsg.classList.remove('show');
-            }, 2500); // تقليل مدة الرسالة قليلاً
-        }
-
-        function updateStats() {
-            totalClicksDisplay.textContent = totalClicks;
-            completedRoundsDisplay.textContent = rounds;
-        }
-
-        function setDhikr(name, newTarget, btnElement) {
-            dhikrNameDisplay.textContent = name;
-            target = newTarget;
-            targetDisplay.textContent = (newTarget === Infinity) ? "مفتوح" : newTarget;
-            resetCounter();
-            document.querySelectorAll('#dhikrButtons .select-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            btnElement.classList.add('active');
-        }
-
-        function setTargetManual(newTarget) {
-             target = newTarget;
-             targetDisplay.textContent = (newTarget === Infinity) ? "مفتوح" : newTarget;
-             resetCounter();
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.code === 'Space') {
-                event.preventDefault();
+        document.addEventListener('keypress', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
                 increment();
             }
         });
-    </script>
 
+        window.addEventListener('load', () => {
+            const firstTargetBtn = document.querySelector('.target-btn');
+            if (firstTargetBtn) firstTargetBtn.classList.add('active');
+        });
+    </script>
 </body>
 </html>
