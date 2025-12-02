@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مسبحة إلكترونية - تطبيق ويب للتسبيح والذكر">
+    <meta name="author" content="عبد الحليم أبو طلب">
+    <title>مسبحة إلكترونية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 50%, #0a3d2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            background: linear-gradient(to bottom, #f8f6f0 0%, #ffffff 100%);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            border: 3px solid #d4af37;
+            position: relative;
+        }
+
+        .container::before {
+            content: '☪️';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #d4af37;
+        }
+
+        h1 {
+            color: #0f4c3a;
+            margin-bottom: 10px;
+            font-size: 32px;
+            text-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .designer-credit {
+            color: #888;
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .dhikr-selector {
+            margin-bottom: 30px;
+        }
+
+        .dhikr-btn {
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .dhikr-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .dhikr-btn.active {
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
+            color: white;
+            border-color: #d4af37;
+        }
+
+        .target-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .target-btn {
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            min-width: 60px;
+        }
+
+        .target-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .target-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .counter-display {
+            background: transparent;
+            color: #0f4c3a;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 48px;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+
+        .counter-display.pulse {
+            transform: scale(1.05);
+        }
+
+        .target {
+            color: #888;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .count-btn {
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 100%);
+            color: #d4af37;
+            box-shadow: 0 8px 30px rgba(15, 76, 58, 0.5);
+            border: 3px solid #d4af37;
+            padding: 0;
+            height: 280px;
+            border-radius: 25px;
+            font-size: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .count-btn::before {
+            content: '👆';
+            font-size: 120px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            filter: grayscale(100%) brightness(2);
+        }
+
+        .count-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 15px;
+        }
+
+        .count-btn .btn-text .main-text {
+            font-size: 32px;
+        }
+
+        .count-btn .btn-text .sub-text {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .count-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(15, 76, 58, 0.6);
+        }
+
+        .count-btn:active {
+            transform: scale(0.98);
+        }
+
+        .reset-btn {
+            background: #c62828;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .reset-btn:hover {
+            background: #b71c1c;
+        }
+
+        .completion-message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .completion-message.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            color: #666;
+        }
+
+        .stat-value {
+            color: #0f4c3a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕌 المسبحة الإلكترونية</h1>
+        <p class="subtitle">سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى</p>
+
+        <div class="dhikr-selector">
+            <button class="dhikr-btn active" onclick="setDhikr('سبحان الله', 33)">سبحان الله</button>
+            <button class="dhikr-btn" onclick="setDhikr('الحمد لله', 33)">الحمد لله</button>
+            <button class="dhikr-btn" onclick="setDhikr('الله أكبر', 34)">الله أكبر</button>
+            <button class="dhikr-btn" onclick="setDhikr('لا إله إلا الله', 100)">لا إله إلا الله</button>
+            <button class="dhikr-btn" onclick="setDhikr('أستغفر الله', 100)">أستغفر الله</button>
+        </div>
+
+        <div class="target" id="dhikrName">سبحان الله</div>
+        
+        <div class="counter-display" id="counter">0</div>
+        
+        <div class="target">الهدف: <span id="target">33</span></div>
+
+        <div class="target-selector" style="margin: 20px 0;">
+            <button class="target-btn" onclick="setTarget(33)">33</button>
+            <button class="target-btn" onclick="setTarget(66)">66</button>
+            <button class="target-btn" onclick="setTarget(99)">99</button>
+        </div>
+
+        <div class="buttons">
+            <button class="count-btn" onclick="increment()">
+                <div class="btn-text">
+                    <div class="main-text">اضغط للتسبيح</div>
+                    <div class="sub-text">☝️ المس الشاشة</div>
+                </div>
+            </button>
+            <button class="reset-btn" onclick="reset()">إعادة ضبط العداد</button>
+        </div>
+
+        <div class="completion-message" id="completionMsg">
+            ✨ أحسنت! أكملت العدد المطلوب ✨
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span>إجمالي التسبيحات اليوم:</span>
+                <span class="stat-value" id="totalCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span>الجولات المكتملة:</span>
+                <span class="stat-value" id="completedRounds">0</span>
+            </div>
+        </div>
+
+        <div class="designer-credit">
+            تصميم: عبد الحليم أبو طلب
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+        let target = 33;
+        let currentDhikr = 'سبحان الله';
+        let totalCount = 0;
+        let completedRounds = 0;
+
+        function setTarget(newTarget) {
+            target = newTarget;
+            document.getElementById('target').textContent = target;
+            reset();
+
+            document.querySelectorAll('.target-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function setDhikr(dhikrName, dhikrTarget) {
+            currentDhikr = dhikrName;
+            target = dhikrTarget;
+            document.getElementById('dhikrName').textContent = dhikrName;
+            document.getElementById('target').textContent = target;
+            reset();
+
+            document.querySelectorAll('.dhikr-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function increment() {
+            count++;
+            totalCount++;
+            
+            const counterEl = document.getElementById('counter');
+            counterEl.textContent = count;
+            counterEl.classList.add('pulse');
+            setTimeout(() => counterEl.classList.remove('pulse'), 100);
+
+            document.getElementById('totalCount').textContent = totalCount;
+
+            if (count === target) {
+                completedRounds++;
+                document.getElementById('completedRounds').textContent = completedRounds;
+                document.getElementById('completionMsg').classList.add('show');
+                
+                setTimeout(() => {
+                    document.getElementById('completionMsg').classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function reset() {
+            count = 0;
+            document.getElementById('counter').textContent = count;
+            document.getElementById('completionMsg').classList.remove('show');
+        }
+
+        document.addEventListener('keypress', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                increment();
+            }
+        });
+
+        // تفعيل الزر الأول للهدف عند التحميل
+        window.addEventListener('load', () => {
+            document.querySelector('.target-btn').classList.add('active');
+        });
+    </script>
+</body>
+</html>
