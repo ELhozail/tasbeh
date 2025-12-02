@@ -22,6 +22,7 @@
             align-items: center;
             padding: 20px;
             position: relative;
+            overflow-y: auto;
         }
 
         body::before {
@@ -90,19 +91,23 @@
         }
 
         .dhikr-selector {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
         }
 
         .dhikr-btn {
             background: #f0f0f0;
             border: 2px solid #e0e0e0;
-            padding: 12px 20px;
-            margin: 5px;
+            padding: 10px 14px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .dhikr-btn:hover {
@@ -119,15 +124,16 @@
             display: flex;
             gap: 10px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .target-btn {
             background: #f0f0f0;
             border: 2px solid #e0e0e0;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 12px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             transition: all 0.3s;
             min-width: 60px;
@@ -147,9 +153,9 @@
             background: transparent;
             color: #0f4c3a;
             border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            font-size: 48px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 44px;
             font-weight: bold;
             transition: transform 0.1s;
         }
@@ -161,18 +167,18 @@
         .target {
             color: #888;
             font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 20px;
         }
 
         button {
-            padding: 18px;
+            padding: 16px;
             border: none;
             border-radius: 15px;
             font-size: 18px;
@@ -187,7 +193,7 @@
             box-shadow: 0 8px 30px rgba(15, 76, 58, 0.5);
             border: 3px solid #d4af37;
             padding: 0;
-            height: 280px;
+            height: 260px;
             border-radius: 25px;
             font-size: 28px;
             position: relative;
@@ -196,12 +202,12 @@
 
         .count-btn::before {
             content: '👆';
-            font-size: 120px;
+            font-size: 110px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.3;
+            opacity: 0.25;
             filter: grayscale(100%) brightness(2);
         }
 
@@ -213,16 +219,16 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            gap: 15px;
+            gap: 10px;
         }
 
         .count-btn .btn-text .main-text {
-            font-size: 32px;
+            font-size: 30px;
         }
 
         .count-btn .btn-text .sub-text {
             font-size: 18px;
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .count-btn:hover {
@@ -237,7 +243,7 @@
         .reset-btn {
             background: #c62828;
             color: white;
-            padding: 15px;
+            padding: 13px;
             font-size: 16px;
         }
 
@@ -248,10 +254,10 @@
         .completion-message {
             background: #4CAF50;
             color: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 15px;
-            margin-top: 20px;
-            font-size: 18px;
+            margin-top: 18px;
+            font-size: 16px;
             font-weight: bold;
             display: none;
         }
@@ -273,8 +279,8 @@
         }
 
         .stats {
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 22px;
+            padding: 15px;
             background: #f9f9f9;
             border-radius: 15px;
         }
@@ -282,13 +288,78 @@
         .stat-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 8px 0;
             color: #666;
+            font-size: 14px;
         }
 
         .stat-value {
             color: #0f4c3a;
             font-weight: bold;
+        }
+
+        /* 🔻 تحسينات للجوال 🔻 */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 22px 14px;
+                border-radius: 22px;
+            }
+
+            h1 {
+                font-size: 26px;
+                margin-top: 10px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 18px;
+            }
+
+            .dhikr-btn {
+                font-size: 13px;
+                padding: 7px 10px;
+            }
+
+            .counter-display {
+                font-size: 36px;
+                padding: 10px 0;
+            }
+
+            .target {
+                font-size: 16px;
+            }
+
+            .count-btn {
+                height: 220px;
+            }
+
+            .count-btn .btn-text .main-text {
+                font-size: 24px;
+            }
+
+            .count-btn .btn-text .sub-text {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 15px;
+                padding: 12px;
+            }
+
+            .stats {
+                padding: 12px;
+                margin-top: 16px;
+            }
+
+            .designer-credit {
+                margin-top: 20px;
+                padding-top: 15px;
+            }
         }
     </style>
 </head>
@@ -311,7 +382,7 @@
         
         <div class="target">الهدف: <span id="target">33</span></div>
 
-        <div class="target-selector" style="margin: 20px 0;">
+        <div class="target-selector" style="margin: 12px 0 18px;">
             <button class="target-btn" onclick="setTarget(33)">33</button>
             <button class="target-btn" onclick="setTarget(66)">66</button>
             <button class="target-btn" onclick="setTarget(99)">99</button>
@@ -324,7 +395,7 @@
                     <div class="sub-text">☝️ المس الشاشة</div>
                 </div>
             </button>
-            <button class="reset-btn" onclick="reset()">إعادة ضبط العداد</button>
+            <button class="reset-btn" onclick="resetCounter()">إعادة ضبط العداد</button>
         </div>
 
         <div class="completion-message" id="completionMsg">
@@ -357,7 +428,7 @@
         function setTarget(newTarget) {
             target = newTarget;
             document.getElementById('target').textContent = target;
-            reset();
+            resetCounter();
 
             document.querySelectorAll('.target-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -370,7 +441,7 @@
             target = dhikrTarget;
             document.getElementById('dhikrName').textContent = dhikrName;
             document.getElementById('target').textContent = target;
-            reset();
+            resetCounter();
 
             document.querySelectorAll('.dhikr-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -400,7 +471,7 @@
             }
         }
 
-        function reset() {
+        function resetCounter() {
             count = 0;
             document.getElementById('counter').textContent = count;
             document.getElementById('completionMsg').classList.remove('show');
@@ -413,9 +484,9 @@
             }
         });
 
-        // تفعيل الزر الأول للهدف عند التحميل
         window.addEventListener('load', () => {
-            document.querySelector('.target-btn').classList.add('active');
+            const firstTargetBtn = document.querySelector('.target-btn');
+            if (firstTargetBtn) firstTargetBtn.classList.add('active');
         });
     </script>
 </body>
